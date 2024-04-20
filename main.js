@@ -5,14 +5,30 @@ const renderButton = document.getElementById('render');
 const killButton = document.getElementById('kill');
 const metaElement = document.getElementById('header-message');
 const linkContainerElement = document.getElementById('download-link');
-const autorotateCheckbox = document.getElementById('autorotate');
+
 const stlViewerElement = document.getElementById("viewer");
 const logsElement = document.getElementById("logs");
 const featuresContainer = document.getElementById("features");
 const flipModeButton = document.getElementById("flip-mode");
 const colorPicker = document.getElementById("colorpicker");
+const resetDefaults = document.getElementById("reset_default");
+const settingsButton = document.getElementById("viewer-settings");
+const settingsMenu = document.getElementById("settings-menu");
+
+const pageTitle = document.getElementById("page-title");
+
+const renderInfoButton = document.getElementById('render-info');
+const renderInfo = document.getElementById('render-info-menu');
+
+const bgColor = document.getElementById("bg-color");
+const stlColor = document.getElementById("stl-color");
+const gridLines = document.getElementById("gridlines");
 
 const queryParams = new URLSearchParams(location.search);
+
+// Does not exist but a pain to change
+const autorotateCheckbox = document.getElementById('autorotate');
+const autorotateButton = document.getElementById('autorotate')
 
 // Paramater creation
 const model_path = 'gridfinity_bins/gridfinity_basic_cup.scad';  // folder name (actually zip file) and source file name
@@ -27,29 +43,31 @@ const model_default_params = {
     screw_depth: 0,
     hole_overhang_remedy: true,
     chambers: 1,
-    withLabel: "disabled",
+    withLabel: "No Label",
     fingerslide: true,
     labelWidth: 0,
     wall_thickness: 0.95,
     efficient_floor: false,
-    lip_style: "normal",
+    lip_style: "Normal",
 };
 
-const model_param_desriptions = {
-    width: "Width in grid units",
-    depth: "Depth in grid units",
-    height: "Height",
-    magnet_diameter: "Include hole for magnet (Zack's design is 6.5 mm) or 0 to omit magnet hole",
-    screw_depth: "Include deeper narrow hole for screw (Zack's design is 6 mm) or 0 to omit screw hole",
-    hole_overhang_remedy: "If both screw and magnet are defined, include feature for better printing of magnet/screw overhang",
-    chambers: "Number of subdivisions along x axis (uniform divisions)",
-    withLabel: "Include overhang for label and control position, can be 'disabled', 'left', 'right', 'center', 'leftchanber', 'rightchamber', or 'centerchamber'",
-    fingerslide: "Include large corner fillet on the front",
-    labelWidth: "Width of label in number of units, or zero to indicate full width",
-    wall_thickness: "Thickness of outer walls",
-    efficient_floor: "Efficient floor option saves material and time, but the floor is not smooth (only applies if no magnets, screws, or finger-slide used)",
-    lip_style: "Style of lip at top of walls, can be 'normal', 'reduced', or 'none'",
-};
+function paramSetDefaults() {
+    for (var param in model_default_params) {
+        const defaultValue = model_default_params[param];
+        const propType = typeof model_default_params[param];
+
+        var propElt = document.getElementById(param);
+        if (propType == "boolean") {
+            propElt.checked = defaultValue;
+        } else {
+            propElt.value = defaultValue;
+        }
+
+
+    }
+}
+
+paramSetDefaults();
 
 (async () => {
     if ('serviceWorker' in navigator) {
@@ -69,16 +87,106 @@ function getFormProp(prop) {
     const propType = typeof model_default_params[prop];
     const propElt = document.getElementById(prop);
     if (propType == "boolean") {
-      return propElt.checked;
+        return propElt.checked;
     }
     else if (propType === "number") {
-      return Number(propElt.value);
+        return Number(propElt.value);
     }
     else {
-      // console.log("forcing element " + prop + " to string '" + String(propElt.value) + "'.");
-      return String(propElt.value);  // force to string
+        // console.log("forcing element " + prop + " to string '" + String(propElt.value) + "'.");
+        return String(propElt.value);  // force to string
     }
-  }
+}
+
+const settings_defaults = {
+    bgColor: "#ebebeb",
+    stlColor: "#737373",
+    gridLines: false,
+};
+
+function settingsDefault() {
+    bgColor.value=settings_defaults["bgColor"];
+    stlColor.value=settings_defaults["stlColor"];
+    gridLines.checked = settings_defaults["gridLines"];
+
+};
+
+function getCamerastate(){
+    console.log(stlViewer.get_camera_state());
+};
+
+settingsDefault();
+
+var settingsVis = false;
+
+function SettingsMenuToggle(){
+    if(settingsVis){
+        settingsMenu.classList.add('hide');
+        settingsButton.classList.add('btn-ghost');
+    }else{
+        settingsMenu.classList.remove('hide');
+        settingsButton.classList.remove('btn-ghost');
+    }
+    settingsVis= !(settingsVis);
+};
+
+settingsButton.onclick = () => {
+    if(renderinfoVis){
+        renderInfoToggle();
+    }
+    SettingsMenuToggle();
+};
+
+var renderinfoVis = false;
+
+function renderInfoToggle(){
+    if(renderinfoVis){
+        renderInfo.classList.add('hide');
+        renderInfoButton.classList.add('btn-ghost');
+    }else{
+        renderInfo.classList.remove('hide');
+        renderInfoButton.classList.remove('btn-ghost');
+    }
+    renderinfoVis= !(renderinfoVis);
+};
+
+renderInfoButton.onclick = () => {
+    if(settingsVis){
+        SettingsMenuToggle();
+    }
+    renderInfoToggle();
+};
+
+stlColor.onchange = () => {
+    stlViewer.set_color(model_id, stlColor.value)
+};
+
+gridLines.onchange = () => {
+    stlViewer.set_grid(gridLines.checked);
+};
+
+bgColor.onchange = () => {
+    stlViewer.set_bg_color(bgColor.value);
+};
+
+
+var cameraStartState = {
+    "position": {
+      "x": 91.44090197259156,
+      "y": 73.79826512044899,
+      "z": 72.62376999581453
+    },
+    "up": {
+      "x": 0,
+      "y": 1,
+      "z": 0
+    },
+    "target": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+};
 
 const featureCheckboxes = {};
 
@@ -91,7 +199,10 @@ function buildStlViewer() {
     const stlViewer = new StlViewer(stlViewerElement);
     stlViewer.model_loaded_callback = id => {
         model_id = id;
-        stlViewer.set_grid(true);
+        stlViewer.set_grid(gridLines.checked);
+        stlViewer.set_bg_color(bgColor.value);
+        stlViewer.set_color(id, stlColor.value);
+        stlViewer.set_camera_state(cameraStartState);
         stlViewer.set_auto_zoom(true);
         stlViewer.set_auto_resize(true);
     };
@@ -104,19 +215,18 @@ function viewStlFile() {
 }
 
 function addDownloadLink(container, blob, fileName) {
-    const link = document.createElement('a');
-    link.innerText = "Download";
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    container.append(link);
-    return link;
+    container.innerText = "Download";
+    container.href = URL.createObjectURL(blob);
+    container.download = fileName;
+    container.classList.remove("btn-ghost");
+    return container;
 }
 
 function formatMillis(n) {
     if (n < 1000) {
-        return `${Math.floor(n / 1000)} sec`;
+        return `${Math.floor(n / 1000)}s`;
     }
-    return `${Math.floor(n / 100) / 10} sec`;
+    return `${Math.floor(n / 100) / 10}s`;
 }
 
 let lastJob;
@@ -128,20 +238,22 @@ killButton.onclick = () => {
     }
 };
 
+autorotateButton.onclick = () => {
+    autorotate= !(autorotate);
+    if(autorotate){
+        autorotateButton.classList.remove('btn-ghost');
+    }else{
+        autorotateButton.classList.add('btn-ghost');
+    }
+    stlViewer.set_auto_rotate(autorotate);
+    
+};
+
 function setAutoRotate(value) {
     autorotateCheckbox.checked = value;
     stlViewer.set_auto_rotate(value);
 }
 
-function setViewerFocused(value) {
-    if (value) {
-        flipModeButton.innerText = 'Edit';
-        stlViewerElement.classList.add('focused');
-    } else {
-        flipModeButton.innerText = 'Interact ?';
-        stlViewerElement.classList.remove('focused');
-    }
-}
 function isViewerFocused() {
     return stlViewerElement.classList.contains('focused');
 }
@@ -232,7 +344,8 @@ const render = turnIntoDelayableExecution(renderDelay, () => {
     const source = 'include <' + model_path + '>';
     const model_dir = model_path.split(/[\\/]/)[0];
     const timestamp = Date.now();
-    metaElement.innerText = 'rendering...';
+    metaElement.innerHTML = '- Rendering <div class="loading"></div>';
+    pageTitle.innerText = 'Rendering...';
     metaElement.title = null;
     renderButton.disabled = true;
     setExecuting(true);
@@ -275,8 +388,8 @@ const render = turnIntoDelayableExecution(renderDelay, () => {
                     throw result.error;
                 }
 
-                metaElement.innerText = formatMillis(result.elapsedMillis);
-
+                metaElement.innerText = ' - Rendered in ' + formatMillis(result.elapsedMillis);
+                pageTitle.innerText= 'Gridfinity Generator'
                 const [output] = result.outputs;
                 if (!output) throw 'No output from runner!'
                 const [filePath, content] = output;
@@ -304,6 +417,8 @@ const render = turnIntoDelayableExecution(renderDelay, () => {
 });
 
 renderButton.onclick = () => render({ now: true });
+
+var autorotate = true;
 
 function getState() {
     const features = Object.keys(featureCheckboxes).filter(f => featureCheckboxes[f].checked);
@@ -357,7 +472,6 @@ function setState(state) {
         Object.keys(featureCheckboxes).forEach(f => featureCheckboxes[f].checked = features.has(f));
     }
     setAutoRotate(state.autorotate ?? true)
-    setViewerFocused(state.viewerFocused ?? false);
 }
 
 var previousNormalizedState;
@@ -410,16 +524,10 @@ try {
         onStateChanged({ allowRun: false });
     };
 
-    flipModeButton.onclick = () => {
-        const wasViewerFocused = isViewerFocused();
-        setViewerFocused(!wasViewerFocused);
 
-        if (!wasViewerFocused) {
-            setAutoRotate(false);
-        }
-        onStateChanged({ allowRun: false });
-    };
-
+    resetDefaults.onclick = () => {
+        paramSetDefaults();
+    }
     pollCameraChanges();
     onStateChanged({ allowRun: true });
 
@@ -427,5 +535,3 @@ try {
 } catch (e) {
     console.error(e);
 }
-
-// ABOVE IS UNMODIFIED

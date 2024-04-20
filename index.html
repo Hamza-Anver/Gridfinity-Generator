@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <title id="page-title">Gridfinity Generator</title>
   <script src="deps/three.min.js" defer></script>
   <script src="deps/Projector.js" defer></script>
   <script src="deps/stl_viewer.min.js" defer></script>
@@ -16,102 +17,222 @@
   <link rel="stylesheet" href="css/hack.css">
   <link rel="stylesheet" href="css/themes/dark.css">
   <link rel="stylesheet" href="css/themes/standard.css">
-  <link rel="stylesheet" href="css/custom_styles.css">
+
+  <link rel="stylesheet" href="css/cooltipz.min.css">
 
   <script src="filesystem.js" defer></script>
   <script type="module" src="main.js" defer></script>
+  <link rel="stylesheet" href="coloris/coloris.css" />
+  <script src="coloris/coloris.js"></script>
+
+  <link rel="stylesheet" href="css/custom_styles.css">
+
 </head>
 
 <body class="hack standard">
   <div class="main container">
     <h1>Gridfinity Generator
-      <span id="header-message">- test</span>
+      <span id="header-message"></span>
     </h1>
     <div class="grid">
       <div class="cell -6of12">
-          <fieldset class="form-group">
-            <label for="width">Width in grid units:</label>
-            <input id="width" type="number" value="1" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="depth">Depth in grid units:</label>
-            <input id="depth" type="number" value="1" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="height">Height in XXX units:</label>
-            <input id="height" type="number" value="1" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="wall_thickness">Wall Thickness:</label>
-            <input id="wall_thickness" type="number" value="0.95" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="lip_style">Wall Lip Style:</label>
-            <select id="lip_style" class="form-control">
-              <option>Normal</option>
-              <option>Reduced</option>
-              <option>None</option>
-            </select>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="magnet_diameter">Magnet Diameter:</label>
-            <input id="magnet_diameter" type="number" value="0" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="screw_depth">Screw Depth:</label>
-            <input id="screw_depth" type="number" value="0" class="form-control">
-          </fieldset>
-          <label class="container-cm form-control form-group">Overhang Remedy:
-            <input id="hole_overhang_remedy" type="checkbox" checked="checked">
-            <span class="checkmark"></span>
+        <div class="btn-group btn-block">
+          <button id="reset_default" class="btn-link-correct btn btn-default btn-block">Defaults ⟳</button>
+          <button id="render" class="btn btn-primary btn-block">Render</button>
+          <button id="kill" class="btn btn-error btn-block">Kill</button>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="width">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Width (✕42mm):
           </label>
-          <fieldset class="form-group">
-            <label for="chambers">Chambers:</label>
-            <input id="chambers" type="number" value="1" class="form-control">
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="withLabel">Label Position:</label>
-            <select id="withLabel" class="form-control">
-              <option>No Label</option>
-              <option>Left</option>
-              <option>Right</option>
-              <option>Center</option>
-              <option>Left Chamber</option>
-              <option>Right Chamber</option>
-              <option>Center Chamber</option>
-            </select>
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="labelWidth">Label Width:</label>
-            <input id="labelWidth" type="number" value="0" class="form-control">
-          </fieldset>
-            <label class="container-cm form-control">Finger Slide:
-              <input id="fingerslide"type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-            <label class="container-cm form-control">Efficient Floor:
-              <input id="efficient_floor"type="checkbox" checked="checked">
-              <span class="checkmark"></span>
-            </label>
 
+          <input id="width" type="number" class="form-control">
+          <label for="depth">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Depth (✕42mm):
+          </label>
+          <input id="depth" type="number" class="form-control">
+
+          <label for="height">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Height (✕7mm):
+          </label>
+          <input id="height" type="number" class="form-control">
+
+          <label for="wall_thickness">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Wall Thickness:
+          </label>
+          <input id="wall_thickness" type="number" class="form-control">
+
+          <label for="lip_style">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Wall Lip Style:
+          </label>
+          <select id="lip_style" class="form-control">
+            <option>Normal</option>
+            <option>Reduced</option>
+            <option>None</option>
+          </select>
+
+          <label for="magnet_diameter">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Magnet Diameter:
+          </label>
+          <input id="magnet_diameter" type="number" class="form-control">
+
+          <label for="screw_depth">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Screw Depth:
+          </label>
+          <input id="screw_depth" type="number" class="form-control">
+
+
+          <label for="chambers">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Chambers:
+          </label>
+          <input id="chambers" type="number" class="form-control">
+
+          <label for="withLabel">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Label Position:
+          </label>
+          <select id="withLabel" class="form-control">
+            <option>No Label</option>
+            <option>Left</option>
+            <option>Right</option>
+            <option>Center</option>
+            <option>Left Chamber</option>
+            <option>Right Chamber</option>
+            <option>Center Chamber</option>
+          </select>
+
+          <label for="labelWidth">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>
+            Label Width:
+          </label>
+          <input id="labelWidth" type="number" class="form-control">
+
+          <label for="hole_overhang_remedy">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>Overhang Hold Fix:
+          </label>
+          <input id="hole_overhang_remedy" class="form-control" type="checkbox">
+
+          <label for="fingerslide">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>Finger Slide:
+          </label>
+          <input id="fingerslide" class="checkmark form-control" type="checkbox">
+
+          <label for="efficient_floor">
+            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+              class="cooltipz--down cooltipz--large">
+              ⓘ
+            </span>Efficient Floor:
+          </label>
+          <input id="efficient_floor" class="form-control" type="checkbox">
+
+        </div>
       </div>
       <div class="cell -6of12">
         <div class="btn-group btn-block">
-          <button id="render" class="btn btn-primary">Render</button>
-          <button id="download-link" class="btn btn-success">Download</button>
-          <button id="kill" class="btn btn-error">Kill</button>
-          
-          <button id="viewer-settings" class="btn btn-default ">⚙</button>
+          <a id="download-link" class="btn btn-success btn-ghost btn-block" href="">Download</a>
+          <button id="autorotate" class="btn-link-correct btn btn-default btn-block">Rotate</button>
+          <button id="render-info" class="btn btn-default btn-ghost btn-block">Info</button>
+          <button id="viewer-settings" class="btn btn-default btn-block btn-ghost">⚙</button>
         </div>
-        <div id="viewer" tabindex="0"></div>
+        <br>
+        <div class="settings-menu hide -6of12" id="settings-menu">
+          <div class="card">
+            <header class="card-header">Settings</header>
+            <div class="card-content">
+              <div class="inner">
+                Background: <input id="bg-color" class="inputcolor" type="text" value="#eeeeee" data-coloris> <br><br>
+                STL Render: <input id="stl-color" class="inputcolor" type="text" value="#7f869c" data-coloris> <br><br>
+                Grid Lines: <input id="gridlines" class="inputcolor" type="checkbox">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-menu hide -6of12" id="render-info-menu">
+          <div class="card">
+            <header class="card-header">STLViewer Info</header>
+            <div class="card-content">
+              <div class="inner">
+                <span id="logs">No Info</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+        <br>
+        <div id="viewer" class="stl-viewer" tabindex="0"></div>
         <span id="features"></span>
-        <span id="logs"></span>
+
       </div>
     </div>
+    <div class="-6of12 hack">
+      <h2>
+        Credits and Info:
+      </h2>
+      All credit goes to their respective owners, all mistakes and fuckups are mine. <br>
+      <a href="https://zackfreedman.com/">Zack Freedman</a> - Creator of Gridfinity <br>
+      <a href="https://github.com/vector76">Vector76 (Jamie)</a> - Made the web based editor for gridfinity this is based on and the OpenSCAD file<br>
+      <a href="https://sukima.github.io/hackcss-ext/">hack.css</a> - CSS theme template for this site <br>
+      <a href="https://github.com/ochafik/openscad-wasm">Ochafik</a> - For OpenSCAD Web Assembly <br>
+      <br>
+      This was made just for fun over a weekend, as an intro to basic webdev stuff for me <br>
+      it is an abominable mix of code, but it hopefully works <br>
+      <br>
+      Source code (it's not a good read): <a href="https://github.com/Hamza-Anver/Gridfinity-Generator">https://github.com/Hamza-Anver/Gridfinity-Generator</a>
+      <br>
+      <br>
+      MIT License (see Github Page)
+      <br>
+    </div>
   </div>
-  <button id="autorotate" class="btn btn-default btn-ghost">Rotate</button>
-          <button id="flip-mode" class="btn btn-default btn-ghost">Flip</button>
+
   <noscript>JavaScript is needed for Gridfinity Generator to work</noscript>
+  
 </body>
 
 </html>
