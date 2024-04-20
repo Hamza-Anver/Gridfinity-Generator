@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <script src="deps/three.min.js" defer></script>
   <script src="deps/Projector.js" defer></script>
@@ -20,56 +21,97 @@
   <script src="filesystem.js" defer></script>
   <script type="module" src="main.js" defer></script>
 </head>
+
 <body class="hack standard">
   <div class="main container">
-    <h1>Gridfinity Generator</h1>
+    <h1>Gridfinity Generator
+      <span id="header-message">- test</span>
+    </h1>
     <div class="grid">
       <div class="cell -6of12">
-          <form class="form">
-            <fieldset class="form-group">
-              <label for="username">USERNAME:</label>
-              <input id="username" type="text" placeholder="type your name..." class="form-control">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="email">EMAIL:</label>
-              <input id="email" type="email" placeholder="" class="form-control">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="country">COUNTRY:</label>
-              <select id="country" class="form-control">
-                <option>China</option>
-                <option>U.S.</option>
-                <option>U.K.</option>
-                <option>Japan</option>
-              </select>
-            </fieldset>
-            <fieldset class="form-group form-textarea">
-              <label for="message">MESSAGE:</label>
-              <textarea id="message" rows="5" class="form-control"></textarea>
-            </fieldset>
-            <div class="form-actions">
-              
-            </div>
-          </form>
+          <fieldset class="form-group">
+            <label for="width">Width in grid units:</label>
+            <input id="width" type="number" value="1" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="depth">Depth in grid units:</label>
+            <input id="depth" type="number" value="1" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="height">Height in XXX units:</label>
+            <input id="height" type="number" value="1" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="wall_thickness">Wall Thickness:</label>
+            <input id="wall_thickness" type="number" value="0.95" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="lip_style">Wall Lip Style:</label>
+            <select id="lip_style" class="form-control">
+              <option>Normal</option>
+              <option>Reduced</option>
+              <option>None</option>
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="magnet_diameter">Magnet Diameter:</label>
+            <input id="magnet_diameter" type="number" value="0" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="screw_depth">Screw Depth:</label>
+            <input id="screw_depth" type="number" value="0" class="form-control">
+          </fieldset>
+          <label class="container-cm form-control form-group">Overhang Remedy:
+            <input id="hole_overhang_remedy" type="checkbox" checked="checked">
+            <span class="checkmark"></span>
+          </label>
+          <fieldset class="form-group">
+            <label for="chambers">Chambers:</label>
+            <input id="chambers" type="number" value="1" class="form-control">
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="withLabel">Label Position:</label>
+            <select id="withLabel" class="form-control">
+              <option>No Label</option>
+              <option>Left</option>
+              <option>Right</option>
+              <option>Center</option>
+              <option>Left Chamber</option>
+              <option>Right Chamber</option>
+              <option>Center Chamber</option>
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="labelWidth">Label Width:</label>
+            <input id="labelWidth" type="number" value="0" class="form-control">
+          </fieldset>
+            <label class="container-cm form-control">Finger Slide:
+              <input id="fingerslide"type="checkbox" checked="checked">
+              <span class="checkmark"></span>
+            </label>
+            <label class="container-cm form-control">Efficient Floor:
+              <input id="efficient_floor"type="checkbox" checked="checked">
+              <span class="checkmark"></span>
+            </label>
+
       </div>
       <div class="cell -6of12">
         <div class="btn-group btn-block">
-          <button class="btn btn-primary">Render</button>
-          <button class="btn btn-success">Download</button>
-          <button class="btn btn-error">Kill</button>
-          <button class="btn btn-default">Rotate</button>
-          <button class="btn btn-default btn-ghost">⚙</button>
+          <button id="render" class="btn btn-primary">Render</button>
+          <button id="download-link" class="btn btn-success">Download</button>
+          <button id="kill" class="btn btn-error">Kill</button>
+          
+          <button id="viewer-settings" class="btn btn-default ">⚙</button>
         </div>
         <div id="viewer" tabindex="0"></div>
-        <span id="features" class="features"></span>
+        <span id="features"></span>
+        <span id="logs"></span>
       </div>
     </div>
   </div>
-  
-
+  <button id="autorotate" class="btn btn-default btn-ghost">Rotate</button>
+          <button id="flip-mode" class="btn btn-default btn-ghost">Flip</button>
+  <noscript>JavaScript is needed for Gridfinity Generator to work</noscript>
 </body>
 
 </html>
-<!-- HTML !-->
-
-
