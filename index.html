@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <script src="deps/three.min.js" defer></script>
   <script src="deps/Projector.js" defer></script>
@@ -12,244 +11,65 @@
   <script src="deps/CanvasRenderer.js" defer></script>
   <script src="browserfs.min.js" defer></script>
 
-  <script>
-    const model_path = 'model/model.scad';  // folder name (actually zip file) and source file name
-  
-    const outstl_name = 'model_out.stl';
-  
-    const model_default_params = {
-      xsize: 10,
-      ysize: 10,
-      zsize: 10,
-    };
-    
-    (async() => {
-      if ('serviceWorker' in navigator) {
-        for (const reg of await navigator.serviceWorker.getRegistrations()) {
-          try {
-            reg.unregister()
-          } catch (e) {
-            console.error(e, e.stackTrace);
-          }
-        }
-      }
-    })();
-  </script>
-  
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" href="css/hack.css">
+  <link rel="stylesheet" href="css/themes/dark.css">
+  <link rel="stylesheet" href="css/themes/standard.css">
+  <link rel="stylesheet" href="css/custom_styles.css">
+
   <script src="filesystem.js" defer></script>
   <script type="module" src="main.js" defer></script>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-    }
-
-    html {
-      height: -webkit-fill-available;
-    }
-
-    .root {
-      position: fixed;
-      left: 0;
-      top: 100;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    #editor-panel,
-    #view-panel {
-      min-width: 40vw;
-      padding: 10px;
-      /* height: 100vh; */
-    }
-
-    #flip-mode {
-      display: none;
-      position: fixed;
-      left: 5px;
-      top: 5px;
-      z-index: 10;
-      font-size: large;
-      padding: 10px 20px;
-      margin: 5px 0;
-    }
-
-    .iPadShowKeyboard {
-      right: 130px !important;
-    }
-
-    #view-panel {
-      width: 70vw;
-    }
-
-    #editor-panel {
-      width: 30vw;
-    }
-
-    .row {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    #run, #kill {
-      padding: 5px;
-      margin-top: 5px;
-    }
-    .button {
-      margin-right: 10px;
-    }
-    .text {
-      padding: 5px 0 5px 0;
-    }
-    .text-fragment {
-      padding: 0 10px 0 10px;
-      align-self: center;
-    }
-    .logs-container {
-      overflow-y: scroll;
-      height: calc(min(200px, 30vh));
-      position: relative;
-    }
-    .deep-link {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
-    #features {
-      position: fixed;
-      bottom: 0;
-    }
-    .spacer {
-      flex-grow: 1;
-    }
-
-    .title {
-      text-align: center;
-      width: 100%;
-    }
-    
-    #viewer {
-      min-height: 80vh;
-    }
-
-    @media only screen and (max-height: 600px),
-           only screen and (max-width: 600px),
-           only screen and (max-width: 767px),
-           only screen and (max-aspect-ratio: 1/2) {
-      .settings,
-      .desktop {
-        display: none;
-      }
-    }
-
-    @media only screen and (max-width: 767px),
-           only screen and (max-aspect-ratio: 1/2) {
-      
-      #flip-mode {
-        display: block;
-      }
-
-      #viewer {
-        padding: 10px 0;
-        position: absolute;
-        left: 0;
-        top: 50px;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-      }
-
-      #viewer {
-        height: calc(100vh - 55px);
-      }
-
-      #link-container {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        z-index: 4;
-      }
-
-      .logs-container {
-        position: absolute;
-        bottom: 0;
-        height: 30vh;
-        width: 100vw;
-        left: 0;
-        z-index: 1;
-        background-color: rgba(255,255,255,0.7) !important;
-      }
-      .logs-container pre {
-        color: rgba(50, 50, 50, 0.9);
-        font-family: Consolas, "Courier New", monospace;
-        font-weight: normal;
-        font-size: 12px;
-      }
-
-      #viewer {
-        z-index: 0;
-      }
-
-      #viewer.focused {
-        z-index: 3;
-      }
-
-      .features
-      {
-        display: none;
-      }
-    }
-  
-  </style>
 </head>
-
-<body>
-  <div class="root row">
-    <div id="editor-panel" class="col">
-      <button id="flip-mode">Flip</button>
-      <div id="params">
-      
+<body class="hack standard">
+  <div class="main container">
+    <h1>Gridfinity Generator</h1>
+    <div class="grid">
+      <div class="cell -6of12">
+          <form class="form">
+            <fieldset class="form-group">
+              <label for="username">USERNAME:</label>
+              <input id="username" type="text" placeholder="type your name..." class="form-control">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="email">EMAIL:</label>
+              <input id="email" type="email" placeholder="" class="form-control">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="country">COUNTRY:</label>
+              <select id="country" class="form-control">
+                <option>China</option>
+                <option>U.S.</option>
+                <option>U.K.</option>
+                <option>Japan</option>
+              </select>
+            </fieldset>
+            <fieldset class="form-group form-textarea">
+              <label for="message">MESSAGE:</label>
+              <textarea id="message" rows="5" class="form-control"></textarea>
+            </fieldset>
+            <div class="form-actions">
+              
+            </div>
+          </form>
       </div>
-      <div>
-      <br/>
-      <a href='' id="permalink">Link to current parameters</a>
+      <div class="cell -6of12">
+        <div class="btn-group btn-block">
+          <button class="btn btn-primary">Render</button>
+          <button class="btn btn-success">Download</button>
+          <button class="btn btn-error">Kill</button>
+          <button class="btn btn-default">Rotate</button>
+          <button class="btn btn-default btn-ghost">⚙</button>
+        </div>
+        <div id="viewer" tabindex="0"></div>
+        <span id="features" class="features"></span>
       </div>
-      <div class="logs-container">
-        <pre><code id="logs"></code></pre>
-      </div>
-    </div>
-    <div id="view-panel" class="col">
-      <div class="text title desktop">
-        <h2>Parametric Web Generator</h2>
-      </div>
-      <div class="text desktop">
-        <span class="text-fragment">
-          <a target="_blank" href="https://github.com/DSchroer/openscad-wasm">WASM build</a>
-          + <a target="_blank" href="https://github.com/omrips/viewstl">STL Viewer</a>
-        </span>
-      </div>
-      <div class="text desktop">
-      </div>
-      <div class="row text">
-        <button class="button settings" id="run">Render (Ctrl+Enter)</button>
-        <button class="button settings" id="kill" disabled>Kill</button>
-        <div class="text-fragment" id="link-container"></div>
-        <div class="text-fragment settings" id="meta"></div>
-        <span class="spacer settings"></span>
-        <span class="text-fragment settings"><input type="checkbox" id="autorotate" checked>Rotate</span>
-        <span class="spacer settings"></span>
-      </div>
-      <div id="viewer" tabindex="0"></div>
-      <span id="features" class="features"></span>
     </div>
   </div>
+  
 
 </body>
 
 </html>
+<!-- HTML !-->
+
+

@@ -24,7 +24,7 @@
     formatToggle : false,
     swatches: [],
     swatchesOnly: false,
-    alpha: true,
+    alpha: false,
     forceAlpha: false,
     focusInput: true,
     selectInput: false,
@@ -32,7 +32,7 @@
     defaultColor: '#000000',
     clearButton: false,
     clearLabel: 'Clear',
-    closeButton: false,
+    closeButton: true,
     closeLabel: 'Close',
     onChange: () => undefined,
     a11y: {

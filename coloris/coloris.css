@@ -2,7 +2,6 @@
   display: none;
   flex-wrap: wrap;
   position: absolute;
-  width: 200px;
   z-index: 1000;
   border-radius: 10px;
   background-color: #fff;
