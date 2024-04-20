@@ -11,6 +11,7 @@ Derived from https://github.com/vector76/Web_OpenSCAD_Customizer, and modified p
 - Allow saving state in browser
 - Allow for more future variations of gridfinity to be generated
 - Improve user input validation
+- Improve 3D view, button to reset view to start and correct zoom etc.
 
 All credit goes to their respective owners, all mistakes and fuckups are mine. <br>
 <a href="https://zackfreedman.com/">Zack Freedman</a> - Creator of Gridfinity <br>
