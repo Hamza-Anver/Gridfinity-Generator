@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="deps/three.min.js" defer></script>
+  <script src="deps/Projector.js" defer></script>
+  <script src="deps/stl_viewer.min.js" defer></script>
+  <script src="deps/webgl_detector.js" defer></script>
+  <script src="deps/OrbitControls.js" defer></script>
+  <script src="deps/parser.min.js" defer></script>
+  <script src="deps/TrackballControls.js" defer></script>
+  <script src="deps/CanvasRenderer.js" defer></script>
+  <script src="browserfs.min.js" defer></script>
+
+  <script src="gridfinity.js" defer></script>
+
+  <script src="filesystem.js" defer></script>
+  <script type="module" src="main.js" defer></script>
+  <link href="css/gridstyle.css" rel="stylesheet" />
+  <link href="css/terminal.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="coloris/coloris.css" />
+  <script src="coloris/coloris.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+  <div>
+  </div>
+  <div class="container">
+    <div class="terminal-nav">
+      <header class="terminal-logo">
+        <div class="logo">Gridfinity Generator</div>
+      </header>
+      <nav class="terminal-menu">
+        <ul>
+          <li><a href="/" class="menu-item"><span>Light</span></a>
+            <meta property="position">
+          </li>
+          <li property="itemListElement" typeof="ListItem"><a href="/dark/" property="item" typeof="WebPage"
+              class="menu-item"><span property="name">Zack Freedman</span></a>
+            <meta property="position" content="1">
+          </li>
+          <li property="itemListElement" typeof="ListItem"><a href="/sans-serif/" property="item" typeof="WebPage"
+              class="menu-item"><span property="name">Sans</span></a>
+            <meta property="position" content="2">
+          </li>
+          <li property="itemListElement" typeof="ListItem"><a href="/sans-serif-dark/" property="item" typeof="WebPage"
+              class="menu-item"><span property="name">Sans Dark</span></a>
+            <meta property="position" content="3">
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="auto-grid">
+    <div id="view-panel">
+      <div class="row text">
+        <button class="btn" id="run">Render (Ctrl+Enter)</button>
+        <button class="btn" id="kill" disabled>Kill</button>
+        <div class="text-fragment" id="link-container"></div>
+        <div class="text-fragment settings" id="meta"></div>
+        <span class="spacer settings"></span>
+        <span class="text-fragment settings"><input type="checkbox" id="autorotate" checked>Rotate</span>
+        <span class="text-fragment settings"><input type="color" id="colorpicker" value="#d4cd0d" /></span>
+        <input type="text" data-coloris>
+        <span class="spacer settings"></span>
+      </div>
+      <div id="viewer" tabindex="0"></div>
+      <span id="features" class="features"></span>
+    </div>
+    <div id="editor-panel">
+      <button id="flip-mode">Flip</button>
+      <div id="params">
+
+      </div>
+      <div>
+        <br />
+        <a href='' id="permalink">Link to current parameters</a>
+      </div>
+      <div class="logs-container">
+        <pre><code id="logs"></code></pre>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>
