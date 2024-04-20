@@ -122,43 +122,53 @@
  }
 
  .form-group {
-    overflow: hidden;
-     height: 100%;
-     width: 100%;
+     overflow: visible;
  }
 
- .stl-viewer{
-    height:100%;
-    width: 100%;
+ .stl-viewer {
+     height: 100vh;
  }
 
- .settings-menu{
-    overflow: hidden;
-    position: absolute;
-    z-index: 99999;
-    background-color: rgb(255, 255, 255);
+ .settings-menu {
+     overflow: hidden;
+     position: absolute;
+     z-index: 99999;
+     background-color: rgb(255, 255, 255);
  }
 
  .hide {
-	display: none;
-}
+     display: none;
+ }
 
-.show {
-	display: block;
-}
+ .show {
+     display: block;
+ }
 
-.btn-link-correct{
-    padding: 1rem;
-}
+ .btn-link-correct {
+     padding: 1rem;
+ }
 
-.inputcolor {
-    width: 150px;
-    height: 32px;
-    padding: 0 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    box-sizing: border-box;
-}
+ .inputcolor {
+     width: 150px;
+     height: 32px;
+     padding: 0 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-family: inherit;
+     font-size: inherit;
+     font-weight: inherit;
+     box-sizing: border-box;
+ }
+
+ .container-moi {
+     margin-left: 10vw;
+     margin-right: 10vw;
+ }
+
+ .param-group-moi {
+     height: 100%;
+ }
+
+ .param-item-moi {
+     padding: 1;
+ }

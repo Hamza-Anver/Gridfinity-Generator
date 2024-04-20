@@ -1,10 +1,16 @@
 # Client Side Browser Generator for Gridfinity
-Live here (probably):
+Live here (probably): https://hamza-anver.github.io/Gridfinity-Generator/
 
 This was made just for fun over a weekend, as an exercise in web dev <br>
 it is an abominable mix of code, but it hopefully works <br>
 
 Derived from https://github.com/vector76/Web_OpenSCAD_Customizer, and modified poorly to try and have an improved UX
+
+## Future improvements:
+- Refactor code so it isn't a nightmare
+- Allow saving state in browser
+- Allow for more future variations of gridfinity to be generated
+- Improve user input validation
 
 All credit goes to their respective owners, all mistakes and fuckups are mine. <br>
 <a href="https://zackfreedman.com/">Zack Freedman</a> - Creator of Gridfinity <br>

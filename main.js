@@ -51,6 +51,38 @@ const model_default_params = {
     lip_style: "Normal",
 };
 
+// Not an elegant approach but it should work
+// Will probably regret later if I work on it
+// Seems to be a theme now
+const model_param_mapping = {
+    Normal: "normal",
+    Reduced: "reduced",
+    None: "none",
+    "No Label": "disabled",
+    Left: "left",
+    Right: "right",
+    Center: "center",
+    "Left Chamber": "leftchamber",
+    "Right Chamber": "rightchamber",
+    "Center Chamber": "centerchamber",
+};
+
+const model_param_desriptions = {
+    width: "Number of grid units left-to-right (x axis)",
+    depth: "Number of grid units front-to-back (y axis)",
+    height: "Height of bin in standard units (multiples of 7 mm)",
+    magnet_diameter: "Include hole for magnet (Zack's design is 6.5 mm) or 0 to omit magnet hole",
+    screw_depth: "Include deeper narrow hole for screw (Zack's design is 6 mm) or 0 to omit screw hole",
+    hole_overhang_remedy: "If both screw and magnet are defined, include feature for better printing of magnet/screw overhang",
+    chambers: "Number of subdivisions along x axis (uniform divisions)",
+    withLabel: "Include overhang for label and control position, can be 'disabled', 'left', 'right', 'center', 'leftchanber', 'rightchamber', or 'centerchamber'",
+    fingerslide: "Include large corner fillet on the front",
+    labelWidth: "Width of label in number of units, or zero to indicate full width",
+    wall_thickness: "Thickness of outer walls (Zack's design is 0.95)",
+    efficient_floor: "Efficient floor option saves material and time, but the floor is not smooth (only applies if no magnets, screws, or finger-slide used)",
+    lip_style: "Style of lip at top of walls, can be 'normal', 'reduced', or 'none'",
+  };
+
 function paramSetDefaults() {
     for (var param in model_default_params) {
         const defaultValue = model_default_params[param];
@@ -93,8 +125,8 @@ function getFormProp(prop) {
         return Number(propElt.value);
     }
     else {
-        // console.log("forcing element " + prop + " to string '" + String(propElt.value) + "'.");
-        return String(propElt.value);  // force to string
+        const mappedString = model_param_mapping[propElt.value];
+        return String(mappedString);  // force to string after mapping
     }
 }
 
@@ -109,10 +141,6 @@ function settingsDefault() {
     stlColor.value=settings_defaults["stlColor"];
     gridLines.checked = settings_defaults["gridLines"];
 
-};
-
-function getCamerastate(){
-    console.log(stlViewer.get_camera_state());
 };
 
 settingsDefault();
@@ -510,6 +538,11 @@ try {
         setAutoRotate(!autorotateCheckbox.checked);
         onStateChanged({ allowRun: false });
     };
+
+    stlViewerElement.onclick = () => {
+        if(settingsVis){ SettingsMenuToggle();};
+        if(renderinfoVis){ renderInfoToggle();};
+    }
 
     const initialState = defaultState;
 

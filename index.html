@@ -2,6 +2,9 @@
 <html>
 
 <head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title id="page-title">Gridfinity Generator</title>
   <script src="deps/three.min.js" defer></script>
   <script src="deps/Projector.js" defer></script>
@@ -30,7 +33,7 @@
 </head>
 
 <body class="hack standard">
-  <div class="main container">
+  <div class="main container-moi">
     <h1>Gridfinity Generator
       <span id="header-message"></span>
     </h1>
@@ -43,44 +46,53 @@
         </div>
         <br>
         <div class="form-group">
-          <label for="width">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
-              class="cooltipz--down cooltipz--large">
-              ⓘ
-            </span>
-            Width (✕42mm):
-          </label>
+          <div class="cell param-item-moi">
+            <label for="width">
+              <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+                class="cooltipz--down cooltipz--large">
+                ⓘ
+              </span>
+              Width (✕42mm):
+            </label>
+            <input id="width" type="number" class="form-control">
+          </div>
 
-          <input id="width" type="number" class="form-control">
+          <div class="cell param-item-moi">
           <label for="depth">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Depth along y-axis, in multiples of 42mm (grid size)"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Depth (✕42mm):
           </label>
           <input id="depth" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="height">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Height, in multiples of 7mm"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Height (✕7mm):
           </label>
           <input id="height" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="wall_thickness">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Thickness of outer wall in mm"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Wall Thickness:
           </label>
           <input id="wall_thickness" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="lip_style">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Style of lip at top of walls"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
@@ -91,18 +103,22 @@
             <option>Reduced</option>
             <option>None</option>
           </select>
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="magnet_diameter">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Diameter of hole for magnet insertion, 0 omits the hole"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Magnet Diameter:
           </label>
           <input id="magnet_diameter" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="screw_depth">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Depth of narrow screw hole, 0 omits the hold"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
@@ -110,18 +126,22 @@
           </label>
           <input id="screw_depth" type="number" class="form-control">
 
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="chambers">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Number of subdivisions along x-axis (uniformly distributed)"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Chambers:
           </label>
           <input id="chambers" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="withLabel">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Position of overhang for label, can also exclude an overhang"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
@@ -136,42 +156,58 @@
             <option>Right Chamber</option>
             <option>Center Chamber</option>
           </select>
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="labelWidth">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Width of label, in multiples of 42mm (grid size), 0 is full length"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>
             Label Width:
           </label>
           <input id="labelWidth" type="number" class="form-control">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="hole_overhang_remedy">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="If both screw and magnet are defined, include feature for better printing of magnet/screw overhang"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>Overhang Hold Fix:
           </label>
           <input id="hole_overhang_remedy" class="form-control" type="checkbox">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="fingerslide">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Include large corner fillet on the front, to make removing items easier"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>Finger Slide:
           </label>
           <input id="fingerslide" class="checkmark form-control" type="checkbox">
+        </div>
 
+        <div class="cell param-item-moi">
           <label for="efficient_floor">
-            <span aria-label="Width along x-axis, in multiples of 42mm (grid size)"
+            <span aria-label="Efficient floor option saves material and time, but the floor is not smooth (only applies if no magnets, screws, or finger-slide used)"
               class="cooltipz--down cooltipz--large">
               ⓘ
             </span>Efficient Floor:
           </label>
-          <input id="efficient_floor" class="form-control" type="checkbox">
+          <input class="form-control" id="efficient_floor" type="checkbox">
+          <div ></div>
+        </div>
 
+        <div class="cell param-item-moi">
+        </div>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
+      <!-- SECOND COLUMN -->
       <div class="cell -6of12">
         <div class="btn-group btn-block">
           <a id="download-link" class="btn btn-success btn-ghost btn-block" href="">Download</a>
@@ -207,7 +243,6 @@
         <br>
         <div id="viewer" class="stl-viewer" tabindex="0"></div>
         <span id="features"></span>
-
       </div>
     </div>
     <div class="-6of12 hack">
