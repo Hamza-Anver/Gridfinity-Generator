@@ -370,9 +370,9 @@ function turnIntoDelayableExecution(delay, createJob) {
 var renderDelay = 1000;
 const render = turnIntoDelayableExecution(renderDelay, () => {
     const source = 'include <' + model_path + '>';
-    const model_dir = model_path.split(/[\\/]/)[0];
+    const model_dir = model_path.split(/[\\/]/)[0];                              
     const timestamp = Date.now();
-    metaElement.innerHTML = '- Rendering <div class="loading"></div>';
+    metaElement.innerHTML = '- Rendering <span class="loader-dots"></span>';
     pageTitle.innerText = 'Rendering...';
     metaElement.title = null;
     renderButton.disabled = true;
